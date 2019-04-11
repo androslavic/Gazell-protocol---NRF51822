@@ -15,6 +15,18 @@ int CMD_mcp_set_tx_filter (int argc, char **argv);
 int CMD_mcp_set_rx_filter (int argc, char **argv);
 int CMD_mcp_verfy_spi (int argc, char **argv);
 
+int CMD_gzll_mode(int argc, char **argv);
+int CMD_gzll_pipe(int argc, char **argv);
+int CMD_gzll_datarate(int argc, char **argv);
+int CMD_gzll_channel(int argc, char **argv);
+int CMD_gzll_power(int argc, char **argv);
+int CMD_gzll_start(int argc, char **argv);
+int CMD_gzll_stop(int argc, char **argv);
+int CMD_gzll_lastdata(int argc, char **argv);
+int CMD_gzll_send(int argc, char **argv);
+
+
+
  tCmdLineEntry g_sCmdTable[] =
 {
     {"help",     					CMD_help,       				"" },
@@ -22,7 +34,17 @@ int CMD_mcp_verfy_spi (int argc, char **argv);
 		{"mcp_change_mode", 	CMD_mcp_change_mode,  	"" },
 		{"mcp_set_tx_filter", CMD_mcp_set_tx_filter,	"" },
 		{"mcp_set_rx_filter", CMD_mcp_set_rx_filter, 	"" },
-		{"mcp_verfy_spi", 		CMD_mcp_verfy_spi,     	"" },
+		{"gzll_mode", 				CMD_gzll_mode,     			"" },
+		{"gzll_pipe", 				CMD_gzll_pipe,     			"" },
+		{"gzll_datarate", 		CMD_gzll_datarate,     	"" },
+		{"gzll_channel", 			CMD_gzll_channel,     	"" },
+		{"gzll_power",	 			CMD_gzll_power,     		"" },
+		{"gzll_start",	 			CMD_gzll_start,     		"" },
+		{"gzll_stop",	 				CMD_gzll_stop,     			"" },
+		{"gzll_lastdata",	 		CMD_gzll_lastdata,    	"" },
+		{"gzll_send",		 			CMD_gzll_send,     		"" },
+
+
 		{ 0, 0, 0 }
 };
 
@@ -123,3 +145,88 @@ int CMD_mcp_verfy_spi (int argc, char **argv)
 	return 0;
 }
 
+int CMD_gzll_mode(int argc, char **argv){
+	
+	// jedan argument
+	// string "device" ili "host"
+	
+	
+	if (strcmp(argv[1],"device")){
+		gzll_init_device();	
+		return 0;
+	}
+	
+	if (strcmp(argv[1],"host")){
+		gzll_init_host();	
+		return 0;
+	}
+	
+	//Wrong input
+	return 1;
+}
+int CMD_gzll_pipe(int argc, char **argv){
+	
+	// dva argumenta
+	// redni broj pipe-a
+	// zeljena bazna adresa ->string pretvorit u hex
+	
+	int  number = (int)strtol(argv[1], NULL, 16);   
+	int address = (int)strtol(argv[2], NULL, 16); 
+	if (number==0){
+		nrf_gzll_set_base_address_0 (address);
+		return 0;
+	}
+
+	if (number>1 && number<8){
+		nrf_gzll_set_base_address_1 (address);
+		return 0;
+	}
+	
+	//Wrong input
+	return 1;
+}
+
+int CMD_gzll_datarate(int argc, char **argv){
+	
+	
+	if (strcmp(argv[1],"250k")){
+		nrf_gzll_set_datarate	(NRF_GZLL_DATARATE_250KBIT);
+		return 0;
+	}
+	if (strcmp(argv[1],"1M")){
+		nrf_gzll_set_datarate	(NRF_GZLL_DATARATE_1MBIT);
+		return 0;
+	}
+	if (strcmp(argv[1],"2M")){
+		nrf_gzll_set_datarate	(NRF_GZLL_DATARATE_2MBIT);
+		return 0;
+	}
+	
+
+
+	return 0;
+}
+int CMD_gzll_channel(int argc, char **argv){
+
+	return 0;
+}
+int CMD_gzll_power(int argc, char **argv){
+
+	return 0;
+}
+int CMD_gzll_start(int argc, char **argv){
+
+	return 0;
+}
+int CMD_gzll_stop(int argc, char **argv){
+
+	return 0;
+}
+int CMD_gzll_lastdata(int argc, char **argv){
+
+	return 0;
+}
+int CMD_gzll_send(int argc, char **argv){
+
+	return 0;
+}
