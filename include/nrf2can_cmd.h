@@ -11,6 +11,7 @@
 #include "cmdline.h"
 #include "ringbuf.h"
 #include "nrf51.h"
+#include "uart.h"
 
 
 

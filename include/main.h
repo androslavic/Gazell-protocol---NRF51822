@@ -9,4 +9,8 @@
 #include "uart.h"
 #include "clock.h"
 #include "gzll.h"
+#include "cmdline.h"
+#include "ringbuf.h"
+#include "nrf2can_cmd.h"
+
 
