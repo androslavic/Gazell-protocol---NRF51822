@@ -47,6 +47,9 @@ int CMD_help (int argc, char **argv){
     {
 
 		}   
+		
+							uart_puts("  help is on the way \r\n");
+
     return (0);
 }
 
@@ -66,7 +69,8 @@ int CMD_can_termination (int argc, char **argv)
 //	}
 //	else return CMDLINE_TOO_FEW_ARGS;
 //	
-//	return 0;
+
+return 0;
 }
 
 int CMD_mcp_change_mode (int argc, char **argv)
@@ -116,6 +120,6 @@ int CMD_mcp_verfy_spi (int argc, char **argv)
 //		}
 //	}
 
-//	return 0;
+	return 0;
 }
 

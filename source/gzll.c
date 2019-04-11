@@ -67,19 +67,26 @@
 
 	uint8_t data[NRF_GZLL_CONST_MAX_PAYLOAD_LENGTH]={'0'};	
 	uint32_t sizeofdata;
-	int16_t i=0;
 
 
 		
 	if (nrf_gzll_fetch_packet_from_rx_fifo	(pipe,data,&sizeofdata)){
 	
-		
 
-		for (i=0;i<sizeofdata;i++){
-		
-				NRF_UART0->TXD = data[i];
+					char formatData[30]={0};
 
-		}
+					if (isalnum(data[0])){
+					strncpy(formatData, (char*)data, sizeofdata-2);
+					formatData[sizeofdata-1]='\0';
+					uart_puts("Device:");
+					uart_puts((char*)data);
+					CmdLineProcess(formatData);
+					
+
+
+					}
+
+
 		
 	}
 };
@@ -96,7 +103,6 @@
 
 	uint8_t data[NRF_GZLL_CONST_MAX_PAYLOAD_LENGTH];	
 	uint32_t sizeofdata;
-	int16_t i=0;
 
 
 
@@ -105,11 +111,21 @@
 		
 	if (nrf_gzll_fetch_packet_from_rx_fifo	(pipe,data,&sizeofdata)){
 
-		for (i=0;i<sizeofdata;i++){
 		
-				NRF_UART0->TXD = data[i];
 		
-		}
+					char formatData[30]={0};
+
+					if (isalnum(data[0])){
+					strncpy(formatData, (char*)data, sizeofdata-2);
+					formatData[sizeofdata-1]='\0';
+					uart_puts("Host:");
+					uart_puts((char*)data);
+					CmdLineProcess(formatData);
+					
+
+
+					}
+
 
 	};
 	
