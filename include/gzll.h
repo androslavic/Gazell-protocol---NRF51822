@@ -5,6 +5,10 @@
 #include "nrf_gzll.h"
 #include "nrf_gzll_constants.h"
 #include "uart.h"
+#include "ctype.h"
+#include "cmdline.h"
+#include "nrf2can_cmd.h"
+#include "string.h"
 
 #endif 
 
