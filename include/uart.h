@@ -5,6 +5,7 @@
 #include "nrf_gzll.h"
 #include "nrf_gzll_constants.h"
 #include "gzll.h"
+#include "sendData.h"
 #include "ringbuf.h"
 
 #define     RX_BUF_SIZE     32   /**< Size of desired RX buffer, must be a power of 2 or ZERO (No FIFO). */
