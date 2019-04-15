@@ -82,8 +82,6 @@
 					uart_puts((char*)data);
 					CmdLineProcess(formatData);
 					
-
-
 					}
 
 
@@ -92,9 +90,7 @@
 };
 	
 	void nrf_gzll_device_tx_failed	(	uint32_t 	pipe,nrf_gzll_device_tx_info_t 	tx_info ){
-				NRF_UART0->TXD = 'F';
-
-
+		uart_puts("Error: TX Device failed");
 	
 };
 	
@@ -104,13 +100,8 @@
 	uint8_t data[NRF_GZLL_CONST_MAX_PAYLOAD_LENGTH];	
 	uint32_t sizeofdata;
 
-
-
-
-
 		
 	if (nrf_gzll_fetch_packet_from_rx_fifo	(pipe,data,&sizeofdata)){
-
 		
 		
 					char formatData[30]={0};
@@ -132,6 +123,7 @@
 };
 
 	void nrf_gzll_disabled	(	void ){
+		uart_puts("Gzll disabled");
 
 };		
 

@@ -15,7 +15,13 @@ int main (void) {
 	RingBufInit(&ringBuf, buffer,size);
 
 	
-#if NRF_DEVICE
+	////////////////////////////////
+	//provjeri ima li sta u flashu//
+	// flash_check();
+	////////////////////////////////
+	
+	
+	#if NRF_DEVICE
 
 	gzll_init_device();	
 	int32_t i=0;
