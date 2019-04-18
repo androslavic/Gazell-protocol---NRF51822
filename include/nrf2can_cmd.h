@@ -7,12 +7,14 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <ctype.h>
-
+#include "gzll.h"
 #include "cmdline.h"
 #include "ringbuf.h"
 #include "nrf51.h"
 #include "uart.h"
-
+#include "nrf_gzll.h"
+#include "cmdline.h"
+#include "sendData.h"
 
 
 
@@ -24,6 +26,7 @@
 
 extern	char g_cInput[APP_INPUT_BUF_SIZE];//temp buffer for command line parser
 extern unsigned char cBr; //counter for temp. buffer for command line parser
+extern gzllStruct gzll;
 
 
 #endif
