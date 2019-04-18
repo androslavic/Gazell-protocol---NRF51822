@@ -33,7 +33,7 @@ void UART0_IRQHandler (void){
 
 	  RingBufRead(&ringBuf,pucData,count);
 		RingBufAdvanceRead(&ringBuf,count);
-		sendData((char *)pucData);
+		terminalIn((char *)pucData);
 		count=0;
 
 	}
@@ -45,6 +45,7 @@ void UART0_IRQHandler (void){
 
 
 void uart_puts(char *word){
+	
 	
 	NRF_UART0->TXD = 0;
 

@@ -25,3 +25,45 @@ int sendData(const char *format, ...){
 	return 0;
 	
 }
+
+int terminalIn(const char *format, ...){
+	
+		char buffer[30]={0};
+
+	  va_list arg;
+
+	  va_start (arg, format);
+
+	  vsprintf (buffer, format, arg);
+	
+		char* p = strchr(buffer, '\r'); 
+		*p = '\0';
+
+		
+		CmdLineProcess(buffer);
+
+	  va_end (arg);
+
+	
+	return 0;
+	
+}
+
+
+int terminalOut(const char *format, ...){
+	
+		char bufferOut[50]={0};
+
+	  va_list arg;
+
+	  va_start (arg, format);
+
+	  vsprintf (bufferOut, format, arg);
+
+		uart_puts(bufferOut);
+
+	  va_end (arg);
+
+	return 0;
+	
+}
