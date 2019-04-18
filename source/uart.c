@@ -25,33 +25,19 @@ void UART0_IRQHandler (void){
   NVIC_DisableIRQ(UART0_IRQn);    
 	NVIC_ClearPendingIRQ(UART0_IRQn);	
 	NRF_UART0->EVENTS_RXDRDY = 0;
-	
 	slovo = (NRF_UART0->RXD);
 	RingBufWriteOne(&ringBuf, slovo);
-
-	
-
-
 	count++;
 	
 	if (slovo=='\n'){
+
 	  RingBufRead(&ringBuf,pucData,count);
 		RingBufAdvanceRead(&ringBuf,count);
+		terminalIn((char *)pucData);
+		count=0;
 
-
-
-			
-		if (nrf_gzll_add_packet_to_tx_fifo	(	0,(uint8_t *)&pucData,count*sizeof(uint8_t))){ 
-
-
-				count=0;
-		}else{
-	 
-			uart_puts(" Greska,paket nije dodan na tx fifo!\r\n");
-		  RingBufFlush(&ringBuf);		
-
-		};	
 	}
+	
 	NVIC_EnableIRQ (UART0_IRQn);	
 }
 
@@ -59,6 +45,7 @@ void UART0_IRQHandler (void){
 
 
 void uart_puts(char *word){
+	
 	
 	NRF_UART0->TXD = 0;
 
@@ -76,5 +63,7 @@ void uart_puts(char *word){
 
 }
 	
+
+
 	
 	

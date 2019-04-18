@@ -31,6 +31,7 @@
 
 #include <string.h>
 #include "cmdline.h"
+#include "uart.h"
 
 //*****************************************************************************
 //
@@ -122,7 +123,8 @@ CmdLineProcess(char *pcCmdLine)
                 // the error.
                 //
                 else
-                {
+                {			
+										uart_puts("CMDLINE_TOO_MANY_ARGS\r\n");
                     return(CMDLINE_TOO_MANY_ARGS);
                 }
             }
@@ -172,6 +174,8 @@ CmdLineProcess(char *pcCmdLine)
     // Fall through to here means that no matching command was found, so return
     // an error.
     //
+		
+		uart_puts("CMDLINE_BAD_CMD\r\n");
     return(CMDLINE_BAD_CMD);
 }
 
