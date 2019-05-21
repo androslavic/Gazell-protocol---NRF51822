@@ -7,7 +7,7 @@ extern	unsigned char pucData[30];
 extern	int count;
 volatile uint8_t slovo=0;
 
-void uart_init(void){                             
+	void uart_init(void){                             
 
   NRF_UART0->PSELRXD = 0xB;
   NRF_UART0->PSELTXD = 0xC;	

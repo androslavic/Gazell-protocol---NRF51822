@@ -30,7 +30,7 @@
 	
 			nrf_gzll_disable();
 		
-			uint8_t poljeKanala[3]={10,20,30};
+			uint8_t poljeKanala[3]={10,20,30,40};
 		
 			nrf_gzll_init	(	NRF_GZLL_MODE_HOST)	;
 
@@ -52,7 +52,9 @@
 		  nrf_gzll_set_address_prefix_byte	(	0, 0xAA);
 		
 	  	nrf_gzll_set_xosc_ctl (NRF_GZLL_XOSC_CTL_AUTO );
-			
+
+			gzll.mode=NRF_GZLL_MODE_HOST;
+
 			nrf_gzll_enable();
 	}
 	
@@ -63,7 +65,7 @@
 		
 			nrf_gzll_disable();
 
-			uint8_t poljeKanala[3]={10,20,30};
+			uint8_t poljeKanala[3]={10,20,30,40};
 
 			nrf_gzll_init	(	NRF_GZLL_MODE_DEVICE)	;
 
@@ -85,6 +87,8 @@
 		
   		nrf_gzll_set_xosc_ctl (NRF_GZLL_XOSC_CTL_AUTO );
 
+			gzll.mode=NRF_GZLL_MODE_DEVICE;
+			
 			nrf_gzll_enable();
 
 

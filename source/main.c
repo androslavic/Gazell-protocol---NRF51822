@@ -14,7 +14,10 @@ int main (void) {
 	uart_init();	
 	RingBufInit(&ringBuf, buffer,size);
 	start_timer();                    
+	gzll.mode=NRF_GZLL_MODE_SUSPEND;
 	
+
+
 	////////////////////////////////
 	//provjeri ima li sta u flashu//
 	// flash_check();

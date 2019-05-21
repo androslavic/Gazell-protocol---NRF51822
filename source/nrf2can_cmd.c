@@ -6,6 +6,8 @@ char g_cInput[APP_INPUT_BUF_SIZE];//temp buffer for command line parser
 unsigned char cBr = 0; //counter for temp. buffer for command line parser
 
 gzllStruct gzll;
+nrf_gzll_host_rx_info_t rx_info;
+nrf_gzll_device_tx_info_t tx_info;
 
 /*Declaration of functions needed for implementing command line interpreter*/
 
@@ -27,6 +29,9 @@ int CMD_gzll_lastdata(int argc, char **argv);
 int CMD_gzll_send(int argc, char **argv);
 int CMD_gzll_default_host(int argc, char **argv);
 int CMD_gzll_default_device(int argc, char **argv);
+int CMD_gzll_rssi(int argc, char **argv);
+int CMD_gzll_tr(int argc, char **argv);
+int CMD_gzll_xx(int argc, char **argv);
 
 
  tCmdLineEntry g_sCmdTable[] =
@@ -45,8 +50,11 @@ int CMD_gzll_default_device(int argc, char **argv);
 		{"stop",	 						CMD_gzll_stop,     				"" },
 		{"gzll_lastdata",	 		CMD_gzll_lastdata,    		"" },
 		{"send",				 			CMD_gzll_send,     				"" },
-		{"default_host",	 		CMD_gzll_default_host,		"" },
-		{"default_device",		CMD_gzll_default_device,	"" },
+		{"dh",						 		CMD_gzll_default_host,		"" },
+		{"dd",								CMD_gzll_default_device,	"" },
+		{"rssi",							CMD_gzll_rssi,						"" },
+		{"tr",								CMD_gzll_tr,							"" },
+		{"xx",								CMD_gzll_xx,							"" },
 
 		{ 0, 0, 0 }
 };
@@ -63,19 +71,24 @@ const int NUM_CMD = (sizeof(g_sCmdTable)/sizeof(tCmdLineEntry))-1;
 //
 //*****************************************************************************
 int CMD_help (int argc, char **argv){
-    int index;
-    
-    (void)argc;
-    (void)argv;
-    
-    for (index = 0; index < NUM_CMD; index++)
-    {
 
-		}   
 		
-							uart_puts("  help is on the way \r\n");
+		uart_puts("  Command list: \r\n");
+		uart_puts("{\"mode\",               CMD_gzll_mode,            \"device / host\" }, \r\n");
+		uart_puts("{\"pipe\",               CMD_gzll_pipe,            \"\" }, \r\n");
+		uart_puts("{\"datarate\",           CMD_gzll_datarate,        \"\" }, \r\n");
+		uart_puts("{\"channel\",            CMD_gzll_channel,         \"\" }, \r\n");
+		uart_puts("{\"power\",              CMD_gzll_power,           \"\" }, \r\n");
+		uart_puts("{\"start\",              CMD_gzll_start,           \"\" }, \r\n");
+		uart_puts("{\"stop\",               CMD_gzll_stop,            \"\" }, \r\n");
+		uart_puts("{\"gzll_lastdata\",      CMD_gzll_lastdata,        \"\" }, \r\n");
+		uart_puts("{\"send\",               CMD_gzll_send,            \"\" }, \r\n");
+		uart_puts("{\"dh\",                 CMD_gzll_default_host,    \"\" }, \r\n");
+		uart_puts("{\"dd\",                 CMD_gzll_default_device,  \"\" }, \r\n");
+//		uart_puts("{\"rssi\",               CMD_gzll_rssi, 					  \"\" }, \r\n");
+//		uart_puts("{\"tr\",                 CMD_gzll_tr, 							\"\" } \r\n");
 
-    return (0);
+    return 0;
 }
 
 int CMD_can_termination (int argc, char **argv)
@@ -164,7 +177,7 @@ int CMD_gzll_mode(int argc, char **argv){
 			return 0;
 		}else if (strcmp(argv[1],"host") == 0){
 			uart_puts("nrf_gzll_mode_t host;\r\n");		
-			//gzll.mode=NRF_GZLL_MODE_HOST;
+			gzll.mode=NRF_GZLL_MODE_HOST;
 			return 0;
 		}else {
 			uart_puts("CMDLINE_INVALID_ARG\r\n");	
@@ -299,6 +312,7 @@ int CMD_gzll_lastdata(int argc, char **argv){
 int CMD_gzll_send(int argc, char **argv){
 	
 		int i=0,count=0; 
+		char snum[5]={0};
 		char Data[50]={0};
 		
 		for (i=0;i<argc-1;i++){
@@ -316,13 +330,15 @@ int CMD_gzll_send(int argc, char **argv){
 			count++;
 				i++;}
 		
-	
+				//terminalOut(" TX: %d RX: %d\r\n",nrf_gzll_get_tx_fifo_packet_count(0),nrf_gzll_get_rx_fifo_packet_count(0));		
+
 		if (nrf_gzll_add_packet_to_tx_fifo	(	0,(uint8_t *)&Data,count*sizeof(uint8_t))){ 
 			
 		}else{
-			
-			uart_puts(" Greska,paket nije dodan na tx fifo!\r\n");
-			
+			uart_puts(" Greska3,paket nije dodan na tx fifo!\r\n");
+				i=nrf_gzll_get_error_code();
+			terminalOut("Error code: %d!\r\n",i);	
+
 		};
 		
 	return 0;
@@ -342,3 +358,53 @@ int CMD_gzll_default_device(int argc, char **argv){
 		uart_puts("Default device mode activated.\r\n");	
 		return 0;
 		}
+
+		
+int CMD_gzll_rssi(int argc, char **argv){
+
+	if(gzll.mode==NRF_GZLL_MODE_HOST)
+		terminalOut("Host RSSI: %d!\r\n",rx_info.rssi);	
+	if(gzll.mode==NRF_GZLL_MODE_DEVICE)
+		terminalOut("Device RSSI: %d!\r\n",tx_info.rssi);	
+
+	return 0;
+
+
+}
+
+
+ int CMD_gzll_tr(int argc, char **argv){
+terminalOut(" TX: %d RX: %d\r\n",nrf_gzll_get_tx_fifo_packet_count(0),nrf_gzll_get_rx_fifo_packet_count(0));
+
+	return 0;
+
+}
+ 
+ int CMD_gzll_xx(int argc, char **argv){
+
+
+	uint8_t data[NRF_GZLL_CONST_MAX_PAYLOAD_LENGTH]={'0'};	
+	uint32_t sizeofdata;
+
+
+		
+	if (nrf_gzll_fetch_packet_from_rx_fifo	(0,data,&sizeofdata)){
+	
+
+					char formatData[30]={0};
+
+					if (isalnum(data[0])){
+					strncpy(formatData, (char*)data, sizeofdata-2);
+					formatData[sizeofdata-1]='\0';
+					uart_puts("Device:");
+					uart_puts((char*)data);
+					CmdLineProcess(formatData);
+					
+					}
+
+
+		
+	}
+}
+ 
+ 
