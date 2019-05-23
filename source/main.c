@@ -16,7 +16,10 @@ int main (void) {
 	
 	system_init();
 
-	while(1){}	 		
+	int i;
+	while(1){
+	i++;
+	}	 		
 }
 	
 	

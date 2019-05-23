@@ -34,7 +34,8 @@ int CMD_gzll_tr(int argc, char **argv);
 int CMD_gzll_xx(int argc, char **argv);
 int CMD_flash_save(int argc, char **argv);
 int CMD_flash_read(int argc, char **argv);
-
+int CMD_flash_erase(int argc, char **argv);
+int CMD_flash_load(int argc, char **argv);
 
  tCmdLineEntry g_sCmdTable[] =
 {
@@ -54,6 +55,8 @@ int CMD_flash_read(int argc, char **argv);
 		{"send",				 			CMD_gzll_send,     				"" },
 		{"save",				 			CMD_flash_save,    				"" },
 		{"read",				 			CMD_flash_read,    				"" },
+		{"load",				 			CMD_flash_load,    				"" },
+		{"erase",				 			CMD_flash_erase,    			"" },
 		{"dh",						 		CMD_gzll_default_host,		"" },
 		{"dd",								CMD_gzll_default_device,	"" },
 		{"rssi",							CMD_gzll_rssi,						"" },
@@ -89,10 +92,12 @@ int CMD_help (int argc, char **argv){
 		uart_puts("{\"send\",               CMD_gzll_send,            \"\" }, \r\n");
 		uart_puts("{\"dh\",                 CMD_gzll_default_host,    \"\" }, \r\n");
 		uart_puts("{\"dd\",                 CMD_gzll_default_device,  \"\" }, \r\n");
-		uart_puts("{\"save\",               CMD_flash_save, 					\"\" }, \r\n");
-		uart_puts("{\"read\",               CMD_flash_read, 					\"\" }, \r\n");
-//		uart_puts("{\"rssi\",               CMD_gzll_rssi, 					  \"\" }, \r\n");
-//		uart_puts("{\"tr\",                 CMD_gzll_tr, 							\"\" } \r\n");
+		uart_puts("{\"save\",               CMD_flash_save,           \"\" }, \r\n");
+		uart_puts("{\"read\",               CMD_flash_read,           \"\" }, \r\n");
+		uart_puts("{\"load\",               CMD_flash_load,           \"\" }, \r\n");
+		uart_puts("{\"erase\",              CMD_flash_erase,          \"\" }, \r\n");
+		uart_puts("{\"rssi\",               CMD_gzll_rssi,            \"\" }, \r\n");
+		uart_puts("{\"tr\",                 CMD_gzll_tr,              \"\" } \r\n");
 
     return 0;
 }
@@ -410,6 +415,37 @@ terminalOut(" TX: %d RX: %d\r\n",nrf_gzll_get_tx_fifo_packet_count(0),nrf_gzll_g
 
 		
 	}
+		return 0;
+
+}
+
+int CMD_flash_save(int argc, char **argv){
+
+	flash_save();
+
+		return 0;
+
+}
+int CMD_flash_read(int argc, char **argv){
+
+		flash_read();
+
+		return 0;
+
+}
+
+int CMD_flash_erase(int argc, char **argv){
+
+		flash_erase();
+
+		return 0;
+
+}
+
+int CMD_flash_load(int argc, char **argv){
+
+		flash_load();
+	
 		return 0;
 
 }
