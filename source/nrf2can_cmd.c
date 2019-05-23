@@ -32,6 +32,8 @@ int CMD_gzll_default_device(int argc, char **argv);
 int CMD_gzll_rssi(int argc, char **argv);
 int CMD_gzll_tr(int argc, char **argv);
 int CMD_gzll_xx(int argc, char **argv);
+int CMD_flash_save(int argc, char **argv);
+int CMD_flash_read(int argc, char **argv);
 
 
  tCmdLineEntry g_sCmdTable[] =
@@ -50,6 +52,8 @@ int CMD_gzll_xx(int argc, char **argv);
 		{"stop",	 						CMD_gzll_stop,     				"" },
 		{"gzll_lastdata",	 		CMD_gzll_lastdata,    		"" },
 		{"send",				 			CMD_gzll_send,     				"" },
+		{"save",				 			CMD_flash_save,    				"" },
+		{"read",				 			CMD_flash_read,    				"" },
 		{"dh",						 		CMD_gzll_default_host,		"" },
 		{"dd",								CMD_gzll_default_device,	"" },
 		{"rssi",							CMD_gzll_rssi,						"" },
@@ -85,6 +89,8 @@ int CMD_help (int argc, char **argv){
 		uart_puts("{\"send\",               CMD_gzll_send,            \"\" }, \r\n");
 		uart_puts("{\"dh\",                 CMD_gzll_default_host,    \"\" }, \r\n");
 		uart_puts("{\"dd\",                 CMD_gzll_default_device,  \"\" }, \r\n");
+		uart_puts("{\"save\",               CMD_flash_save, 					\"\" }, \r\n");
+		uart_puts("{\"read\",               CMD_flash_read, 					\"\" }, \r\n");
 //		uart_puts("{\"rssi\",               CMD_gzll_rssi, 					  \"\" }, \r\n");
 //		uart_puts("{\"tr\",                 CMD_gzll_tr, 							\"\" } \r\n");
 
@@ -312,7 +318,6 @@ int CMD_gzll_lastdata(int argc, char **argv){
 int CMD_gzll_send(int argc, char **argv){
 	
 		int i=0,count=0; 
-		char snum[5]={0};
 		char Data[50]={0};
 		
 		for (i=0;i<argc-1;i++){
@@ -405,6 +410,7 @@ terminalOut(" TX: %d RX: %d\r\n",nrf_gzll_get_tx_fifo_packet_count(0),nrf_gzll_g
 
 		
 	}
+		return 0;
+
 }
- 
- 
+

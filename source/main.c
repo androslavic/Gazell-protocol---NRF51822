@@ -1,28 +1,20 @@
 #include "main.h"
 
 
-	unsigned char buffer[30]={0};
-	tRingBufObject ringBuf;
-	unsigned long size=30;	
-	unsigned char pucData[30]={0};	
-	int count=0;
-	
-	
-int main (void) {
+void system_init(void){
 	
 	clock_init();
 	uart_init();	
 	RingBufInit(&ringBuf, buffer,size);
 	start_timer();                    
-	gzll.mode=NRF_GZLL_MODE_SUSPEND;
-	
+	gzll.mode=NRF_GZLL_MODE_SUSPEND;	
+	flash_check();
 
-
-	////////////////////////////////
-	//provjeri ima li sta u flashu//
-	// flash_check();
-	////////////////////////////////
+}
 	
+int main (void) {
+	
+	system_init();
 
 	while(1){}	 		
 }

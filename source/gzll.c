@@ -30,7 +30,7 @@
 	
 			nrf_gzll_disable();
 		
-			uint8_t poljeKanala[3]={10,20,30,40};
+			uint8_t poljeKanala[4]={10,20,30,40};
 		
 			nrf_gzll_init	(	NRF_GZLL_MODE_HOST)	;
 
@@ -65,7 +65,7 @@
 		
 			nrf_gzll_disable();
 
-			uint8_t poljeKanala[3]={10,20,30,40};
+			uint8_t poljeKanala[4]={10,20,30,40};
 
 			nrf_gzll_init	(	NRF_GZLL_MODE_DEVICE)	;
 
