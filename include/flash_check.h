@@ -9,6 +9,8 @@
 
 
 void flash_check(void);
+void flash_save(void);
+void flash_erase(void);
 
 
 
