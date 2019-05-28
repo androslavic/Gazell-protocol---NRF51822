@@ -12,16 +12,16 @@
 
 typedef struct
 {
-
+//  base_address	The 4 byte base address. All bytes are used.	
+		uint32_t address;
+	
 //  Enumerator used for selecting Gazell mode.
 //  NRF_GZLL_MODE_DEVICE 	Device mode.
 //  NRF_GZLL_MODE_HOST 		Host mode.
 //  NRF_GZLL_MODE_SUSPEND  Suspend mode ("disabled with timer running")
 		nrf_gzll_mode_t mode;
 	
-//  base_address	The 4 byte base address. All bytes are used.	
-		uint32_t address;
-	
+
 //	This value is a bitmap, and each bit corresponds to a given pipe number.
 //	Bit 0 set to "1" enables pipes 0, bit 1 set to "1" enables pipe 1 and so forth.
 //	The maximum number of pipes is defined by NRF_GZLL_CONST_PIPE_COUNT.

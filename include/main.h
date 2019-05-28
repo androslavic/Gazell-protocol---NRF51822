@@ -14,5 +14,13 @@
 #include "nrf2can_cmd.h"
 #include "sendData.h"
 #include "timer.h"
+#include "flash.h"
 
+
+unsigned char buffer[30]={0};
+tRingBufObject ringBuf;
+unsigned long size=30;	
+unsigned char pucData[30]={0};	
+int count=0;
+	
 

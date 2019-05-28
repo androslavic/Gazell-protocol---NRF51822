@@ -1,10 +1,10 @@
 #ifndef __NRF2CAN_CMD_H
 #define __NRF2CAN_CMD_H
 
-#include <stdio.h>
 #include <stdarg.h>
-#include <string.h>
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
 #include "gzll.h"
@@ -15,7 +15,7 @@
 #include "nrf_gzll.h"
 #include "cmdline.h"
 #include "sendData.h"
-
+#include "flash.h"
 
 
 /*Defines maximal number of argument to be used in commands.***********

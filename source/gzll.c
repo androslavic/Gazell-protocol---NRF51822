@@ -28,9 +28,11 @@
 
 	void gzll_init_host (void){
 	
+			int i;
+		
 			nrf_gzll_disable();
 		
-			uint8_t poljeKanala[3]={10,20,30,40};
+			uint8_t poljeKanala[8]={10,20,30,40};
 		
 			nrf_gzll_init	(	NRF_GZLL_MODE_HOST)	;
 
@@ -53,8 +55,17 @@
 		
 	  	nrf_gzll_set_xosc_ctl (NRF_GZLL_XOSC_CTL_AUTO );
 
-			gzll.mode=NRF_GZLL_MODE_HOST;
-
+			gzll.mode=NRF_GZLL_MODE_HOST;		
+			gzll.address=0x00ABCDEF;
+			gzll.pipe=0;
+			gzll.period=2700;
+			gzll.timeslots=3;
+			gzll.address_prefix=0xAA;
+			for (i=0;i<8;i++)
+				gzll.poljeKanala[i]=poljeKanala[i];
+			gzll.brojKanala=4;
+			gzll.power=NRF_GZLL_TX_POWER_N8_DBM;
+			gzll.data_rate=NRF_GZLL_DATARATE_250KBIT;
 			nrf_gzll_enable();
 	}
 	
@@ -63,9 +74,11 @@
 	
 	void gzll_init_device (void){
 		
+			int i;
+		
 			nrf_gzll_disable();
 
-			uint8_t poljeKanala[3]={10,20,30,40};
+			uint8_t poljeKanala[8]={10,20,30,40};
 
 			nrf_gzll_init	(	NRF_GZLL_MODE_DEVICE)	;
 
@@ -87,7 +100,17 @@
 		
   		nrf_gzll_set_xosc_ctl (NRF_GZLL_XOSC_CTL_AUTO );
 
-			gzll.mode=NRF_GZLL_MODE_DEVICE;
+			gzll.mode=NRF_GZLL_MODE_DEVICE;			
+			gzll.address=0x00ABCDEF;
+			gzll.pipe=0;
+			gzll.period=2700;
+			gzll.timeslots=3;
+			gzll.address_prefix=0xAA;
+			for (i=0;i<8;i++)
+				gzll.poljeKanala[i]=poljeKanala[i];
+			gzll.brojKanala=4;
+			gzll.power=NRF_GZLL_TX_POWER_N8_DBM;
+			gzll.data_rate=NRF_GZLL_DATARATE_250KBIT;
 			
 			nrf_gzll_enable();
 
