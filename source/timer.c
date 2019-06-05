@@ -20,7 +20,7 @@ void start_timer(void)
   NVIC_EnableIRQ(TIMER1_IRQn);
   NVIC_EnableIRQ(TIMER2_IRQn);
 		
-  NRF_TIMER1->TASKS_START = 1;               // Start TIMER1
+  //NRF_TIMER1->TASKS_START = 1;               // Start TIMER1
   NRF_TIMER2->TASKS_START = 1;               // Start TIMER2
 }
 
@@ -36,7 +36,7 @@ void TIMER1_IRQHandler(void)
 
 	
 	static int i=0;
-	int y= 10;
+//	int y= 10;
 	
 	++i;
 	

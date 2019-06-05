@@ -8,6 +8,8 @@ unsigned char cBr = 0; //counter for temp. buffer for command line parser
 gzllStruct gzll;
 nrf_gzll_host_rx_info_t rx_info;
 nrf_gzll_device_tx_info_t tx_info;
+I2C_config_t i2c_config;
+
 
 /*Declaration of functions needed for implementing command line interpreter*/
 
@@ -392,29 +394,31 @@ terminalOut(" TX: %d RX: %d\r\n",nrf_gzll_get_tx_fifo_packet_count(0),nrf_gzll_g
  
  int CMD_gzll_xx(int argc, char **argv){
 
+	 
+	 char x,x1,x2,x3;
 
-	uint8_t data[NRF_GZLL_CONST_MAX_PAYLOAD_LENGTH]={'0'};	
-	uint32_t sizeofdata;
+// brzvz funkcija za debug
+//	 static int i=0;
+//	 unsigned char data[100]="androslavicandroslavicandroslavicandroslavicandroslavicandroslavic";
 
+//		 LEDS_ON(0x000F0000);
 
-		
-	if (nrf_gzll_fetch_packet_from_rx_fifo	(0,data,&sizeofdata)){
-	
-
-					char formatData[30]={0};
-
-					if (isalnum(data[0])){
-					strncpy(formatData, (char*)data, sizeofdata-2);
-					formatData[sizeofdata-1]='\0';
-					uart_puts("Device:");
-					uart_puts((char*)data);
-					CmdLineProcess(formatData);
-					
-					}
+	//	 i2c_master_send_data(data,100);
 
 
-		
-	}
+
+        i2c_config.I2C_bus->TXD = 0xF3;
+			    i2c_config.I2C_bus->TASKS_STARTTX = 1;
+				
+					x = i2c_config.I2C_bus->ERRORSRC & 7;
+			    x1= x & 1;
+			    x2=x & 2;
+			    x3=x & 4;
+			    
+					terminalOut(" error: %d %d %d\r\n",x1,x2,x3);
+
+//	        i2c_config.I2C_bus->EVENTS_TXDSENT = 0;
+
 		return 0;
 
 }
