@@ -15,6 +15,7 @@
 #include "sendData.h"
 #include "timer.h"
 #include "flash.h"
+#include "i2c.h"
 
 
 unsigned char buffer[30]={0};
@@ -23,4 +24,3 @@ unsigned long size=30;
 unsigned char pucData[30]={0};	
 int count=0;
 	
-
