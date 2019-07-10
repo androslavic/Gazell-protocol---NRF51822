@@ -9,7 +9,7 @@ extern	int count;
 volatile uint8_t slovo=0;
 
 
-#define APPLICATION_ADDRESS    0x00010000
+#define APPLICATION_ADDRESS    0x0008000
 
 	void uart_init(void){                             
 

@@ -11,8 +11,10 @@ void system_init(void){
 	RingBufInit(&ringBuf, buffer,size);
 	gzll.mode=NRF_GZLL_MODE_SUSPEND;	
 
-	
+	gzll_check();	
 	flash_check();
+
+		NRF_UART0->ENABLE = 0; 
 
 }
 
