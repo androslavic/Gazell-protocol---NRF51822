@@ -39,6 +39,7 @@ int CMD_flash_read(int argc, char **argv);
 int CMD_flash_erase(int argc, char **argv);
 int CMD_flash_load(int argc, char **argv);
 int CMD_location(int argc, char **argv);
+int CMD_reset (int argc, char **argv);
 
 
  tCmdLineEntry g_sCmdTable[] =
@@ -67,6 +68,7 @@ int CMD_location(int argc, char **argv);
 		{"tr",								CMD_gzll_tr,							"" },
 		{"xx",								CMD_gzll_xx,							"" },
 		{"w",								  CMD_location,							"" },
+		{"reset",							CMD_reset,						  	"" },
 
 		{ 0, 0, 0 }
 };
@@ -82,6 +84,24 @@ const int NUM_CMD = (sizeof(g_sCmdTable)/sizeof(tCmdLineEntry))-1;
 // Print the help strings for all commands.
 //
 //*****************************************************************************
+int CMD_reset (int argc, char **argv)
+{
+	
+	
+	uint32_t JumpAddress;
+	typedef  void (*pFunction)(void);
+	pFunction Jump_To_Application;
+	
+	JumpAddress = *(__IO uint32_t*) (4);
+	Jump_To_Application = (pFunction) JumpAddress;
+
+	__set_MSP(*(__IO uint32_t*) 0);
+		
+	Jump_To_Application();
+
+return 0;
+}
+
 int CMD_help (int argc, char **argv){
 
 		
