@@ -13,11 +13,10 @@
 #include "timer.h"
 #include "clock.h"
 
-
-unsigned char buffer[30]={0};
+unsigned long size=50;	
+unsigned char buffer[50]={0};
 tRingBufObject ringBuf;
-unsigned long size=30;	
-unsigned char pucData[30]={0};	
+unsigned char pucData[50]={0};	
 int count=0;
 	
 uint32_t JumpAddress;

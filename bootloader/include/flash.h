@@ -16,7 +16,17 @@ void flash_erase(void);
 void flash_read(void);
 void flash_load(void);
 
-#define ADRESA 0x0003F600
+void gzll_check(void);
+void gzll_save(void);
+void gzll_erase(void);
+void gzll_read(void);
+void gzll_load(void);
+
+int firmwareUpgrade(void);
+
+
+#define ADRESA_GZLL 0x0003F600
+#define ADRESA_FLASH 0x0003F5FC
 
 #endif //FLASH_H__
 

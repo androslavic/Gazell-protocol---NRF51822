@@ -20,7 +20,7 @@ void UART0_IRQHandler(void);
 extern uint32_t JumpAddress;
 typedef  void (*pFunction)(void);
 extern pFunction Jump_To_Application;
-#define APPLICATION_ADDRESS    0x00010000
+#define APPLICATION_ADDRESS    0x0008000
 
 
 #endif //UART_H__
