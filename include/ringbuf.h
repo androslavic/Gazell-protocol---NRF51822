@@ -23,6 +23,8 @@
 //*****************************************************************************
 #include <stdbool.h>
 #include "nrf51.h"
+#include "uart.h"
+
 #ifndef __RINGBUF_H__
 #define __RINGBUF_H__
 
