@@ -66,11 +66,12 @@ UpdateIndexAtomic(volatile unsigned long *pulVal, unsigned long ulDelta,
                   unsigned long ulSize)
 {
 	uint32_t irq_masked = __disable_irq();
-		// bool bIntsOff;
+   // bool bIntsOff;
+
     //
     // Turn interrupts off temporarily.
     //
-		//    bIntsOff = IntMasterDisable();
+//    bIntsOff = IntMasterDisable();
 		//__disable_irq();
 
     //
@@ -86,7 +87,6 @@ UpdateIndexAtomic(volatile unsigned long *pulVal, unsigned long ulDelta,
     while(*pulVal >= ulSize)
     {
         *pulVal -= ulSize;
-
     }
 
     //
@@ -97,7 +97,6 @@ UpdateIndexAtomic(volatile unsigned long *pulVal, unsigned long ulDelta,
         //IntMasterEnable();
 			//__enable_irq();
 		if(!irq_masked)	__enable_irq();
-
   //  }
 }
 
@@ -665,22 +664,16 @@ RingBufWriteOne(tRingBufObject *ptRingBuf, unsigned char ucData)
     // Verify that space is available in the buffer.
     //
    // ASSERT(RingBufFree(ptRingBuf) != 0);
-
 		if(!RingBufFull(ptRingBuf)){
 			//
 			// Write the data byte.
-
 			//
 			ptRingBuf->pucBuf[ptRingBuf->ulWriteIndex] = ucData;
 
 			//
 			// Increment the write index.
 			//
-			
-
 			UpdateIndexAtomic(&ptRingBuf->ulWriteIndex, 1, ptRingBuf->ulSize);
-			
-
 		}
 }
 
@@ -743,8 +736,6 @@ void
 RingBufInit(tRingBufObject *ptRingBuf, unsigned char *pucBuf,
                unsigned long ulSize)
 {
-	
-
     //
     // Check the arguments.
     //
@@ -758,7 +749,6 @@ RingBufInit(tRingBufObject *ptRingBuf, unsigned char *pucBuf,
     ptRingBuf->ulSize = ulSize;
     ptRingBuf->pucBuf = pucBuf;
     ptRingBuf->ulWriteIndex = ptRingBuf->ulReadIndex = 0;
-	
 }
 
 signed char RingBufQueueWrite(tRingBufObject *ptRingBuf, unsigned char *pucData,

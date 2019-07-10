@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <string.h>
 #include "nrf.h"                        // Device header
 #include "RTE_Components.h"             // Component selection
 #include "system_nrf51.h"               // NordicSemiconductor::Device:Startup
@@ -13,9 +9,9 @@
 #include "ringbuf.h"
 #include "nrf2can_cmd.h"
 #include "sendData.h"
-#include "timer.h"
 #include "flash.h"
-#include "i2c.h"
+#include "timer.h"
+#include "clock.h"
 
 
 unsigned char buffer[30]={0};
@@ -24,3 +20,6 @@ unsigned long size=30;
 unsigned char pucData[30]={0};	
 int count=0;
 	
+uint32_t JumpAddress;
+typedef  void (*pFunction)(void);
+pFunction Jump_To_Application;

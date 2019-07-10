@@ -1,5 +1,6 @@
 #include "uart.h"
 
+
 extern 	unsigned char buffer[30];
 extern	tRingBufObject ringBuf;
 extern	unsigned long size;	
@@ -7,9 +8,11 @@ extern	unsigned char pucData[30];
 extern	int count;
 volatile uint8_t slovo=0;
 
-	void uart_init(void){    
 
-	NRF_UART0->ENABLE = 0; 
+#define APPLICATION_ADDRESS    0x00010000
+
+	void uart_init(void){                             
+
   NRF_UART0->PSELRXD = 0xB;
   NRF_UART0->PSELTXD = 0xC;	
 	NRF_UART0->BAUDRATE = 0x00275000;
@@ -23,35 +26,18 @@ volatile uint8_t slovo=0;
 
 void UART0_IRQHandler (void){
 	
-
 	
-  NVIC_DisableIRQ(UART0_IRQn);    
-	NVIC_ClearPendingIRQ(UART0_IRQn);	
-	NRF_UART0->EVENTS_RXDRDY = 0;
-	slovo = (NRF_UART0->RXD);
 	
 
-	RingBufWriteOne(&ringBuf, slovo);
-
-	count++;
-
+	uint32_t JumpAddress;
 	
+	JumpAddress = *(__IO uint32_t*) (0x48 + APPLICATION_ADDRESS);	
 
+	Jump_To_Application = (pFunction) JumpAddress;
 	
-	if (slovo=='\n'){
+	Jump_To_Application();
 
 
-	  RingBufRead(&ringBuf,pucData,count);
-		RingBufAdvanceRead(&ringBuf,count);
-		terminalIn((char *)pucData);
-
-		count=0;
-
-	}
-
-
-	NVIC_EnableIRQ (UART0_IRQn);	
-	
 
 }
 

@@ -457,13 +457,11 @@ int CMD_flash_load(int argc, char **argv){
 
 }
 
-
 int CMD_location(int argc, char **argv){
 
 
-						terminalOut("\n\r main 0x10000");	
+						terminalOut("\n\r boot 0x00000");	
 
 		return 0;
 
 };
-
