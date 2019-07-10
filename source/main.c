@@ -7,9 +7,9 @@ void system_init(void){
 
 
 	clock_init();
-	uart_init();	
 	RingBufInit(&ringBuf, buffer,size);
-	
+	uart_init();	
+
 
 }
 
@@ -22,7 +22,6 @@ int main (void) {
 	
 	int i;
 	
-	terminalOut("\n\r Entering main... ");	
 	
 	system_init();
 
