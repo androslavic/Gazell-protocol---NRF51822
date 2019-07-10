@@ -16,6 +16,7 @@
 #include "cmdline.h"
 #include "sendData.h"
 #include "flash.h"
+#include "i2c.h"
 
 
 /*Defines maximal number of argument to be used in commands.***********
@@ -27,6 +28,8 @@
 extern	char g_cInput[APP_INPUT_BUF_SIZE];//temp buffer for command line parser
 extern unsigned char cBr; //counter for temp. buffer for command line parser
 extern gzllStruct gzll;
+extern I2C_config_t i2c_config;
+
 
 
 #endif
