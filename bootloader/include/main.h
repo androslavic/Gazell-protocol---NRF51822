@@ -10,6 +10,8 @@
 #include "nrf2can_cmd.h"
 #include "sendData.h"
 #include "flash.h"
+#include "timer.h"
+#include "clock.h"
 
 
 unsigned char buffer[30]={0};

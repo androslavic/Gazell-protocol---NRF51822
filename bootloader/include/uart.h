@@ -16,7 +16,6 @@
 void uart_puts(char *word);
 void uart_init(void);
 void UART0_IRQHandler(void);
-extern volatile uint8_t slovo;
 
 extern uint32_t JumpAddress;
 typedef  void (*pFunction)(void);
