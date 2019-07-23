@@ -3,13 +3,13 @@
 
 
 void system_init(void){
-	
-
-
+		
 	clock_init();
-	RingBufInit(&ringBuf, buffer,size);
 	uart_init();	
-
+	RingBufInit(&ringBuf, buffer,size);
+	gzll.mode=NRF_GZLL_MODE_SUSPEND;	
+	flash_check();
+	start_timer();
 
 }
 
@@ -20,38 +20,28 @@ void system_init(void){
 	
 int main (void) {
 	
-	int i;
-	
-	
 	system_init();
+	terminalOut("System initialised!\r\n");	
 
-
-	terminalOut("\n\r Main program ready. \n\r ");	
 	
 	
-	
-  // set up and send i2c commands
-
-
-//  uint8_t txbuf[1] = {0xE3};
-//  uint8_t rxbuf[1] = {0};
-//	uint8_t *data;
-//	unsigned char tekst[12]="aaaa";
-//	data=tekst;
-//	i2c_master_send(data,7);
-//	unsigned char text[100]="androslavicandroslavicandroslavicandroslavicandroslavicandroslavic";
-//	unsigned char *data;
-//	data=text;
-	
-	
-	
-	
+  while (1) 
+	{
 
 		
+	if (boot == 1)
+		{
+	
+			boot = 0;
 		
-  while (1) {
+			JumpAddress = *(__IO uint32_t*) (BOOTLOADER_ADDRESS + 4);
+			Jump_To_Application = (pFunction) JumpAddress;
 
-			++i;	
+			__set_MSP(*(__IO uint32_t*) BOOTLOADER_ADDRESS);
+		
+			Jump_To_Application();
+	
+		}
 
   }	
 }

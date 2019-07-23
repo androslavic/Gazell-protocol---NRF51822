@@ -14,11 +14,6 @@ I2C_config_t i2c_config;
 /*Declaration of functions needed for implementing command line interpreter*/
 
 int CMD_help (int argc, char **argv);
-int CMD_can_termination (int argc, char **argv);
-int CMD_mcp_change_mode (int argc, char **argv);
-int CMD_mcp_set_tx_filter (int argc, char **argv);
-int CMD_mcp_set_rx_filter (int argc, char **argv);
-int CMD_mcp_verfy_spi (int argc, char **argv);
 
 int CMD_gzll_mode(int argc, char **argv);
 int CMD_gzll_pipe(int argc, char **argv);
@@ -34,21 +29,17 @@ int CMD_gzll_default_device(int argc, char **argv);
 int CMD_gzll_rssi(int argc, char **argv);
 int CMD_gzll_tr(int argc, char **argv);
 int CMD_gzll_xx(int argc, char **argv);
+
 int CMD_flash_save(int argc, char **argv);
 int CMD_flash_read(int argc, char **argv);
 int CMD_flash_erase(int argc, char **argv);
 int CMD_flash_load(int argc, char **argv);
-int CMD_location(int argc, char **argv);
-int CMD_reset (int argc, char **argv);
 
+int CMD_bootloader(int argc, char **argv);
 
  tCmdLineEntry g_sCmdTable[] =
 {
     {"help",     					CMD_help,       					"" },
-		{"can",								CMD_can_termination,			"" },
-		{"mcp_change_mode", 	CMD_mcp_change_mode,  		"" },
-		{"mcp_set_tx_filter", CMD_mcp_set_tx_filter,		"" },
-		{"mcp_set_rx_filter", CMD_mcp_set_rx_filter, 		"" },
 		{"mode", 						  CMD_gzll_mode,     				"" },
 		{"pipe",		   				CMD_gzll_pipe,     				"" },
 		{"datarate", 					CMD_gzll_datarate,    	 	"" },
@@ -67,8 +58,7 @@ int CMD_reset (int argc, char **argv);
 		{"rssi",							CMD_gzll_rssi,						"" },
 		{"tr",								CMD_gzll_tr,							"" },
 		{"xx",								CMD_gzll_xx,							"" },
-		{"w",								  CMD_location,							"" },
-		{"reset",							CMD_reset,						  	"" },
+		{"boot",						  CMD_bootloader,						"" },
 
 		{ 0, 0, 0 }
 };
@@ -84,24 +74,6 @@ const int NUM_CMD = (sizeof(g_sCmdTable)/sizeof(tCmdLineEntry))-1;
 // Print the help strings for all commands.
 //
 //*****************************************************************************
-int CMD_reset (int argc, char **argv)
-{
-	
-	
-	uint32_t JumpAddress;
-	typedef  void (*pFunction)(void);
-	pFunction Jump_To_Application;
-	
-	JumpAddress = *(__IO uint32_t*) (4);
-	Jump_To_Application = (pFunction) JumpAddress;
-
-	__set_MSP(*(__IO uint32_t*) 0);
-		
-	Jump_To_Application();
-
-return 0;
-}
-
 int CMD_help (int argc, char **argv){
 
 		
@@ -123,84 +95,19 @@ int CMD_help (int argc, char **argv){
 		uart_puts("{\"erase\",              CMD_flash_erase,          \"\" }, \r\n");
 		uart_puts("{\"rssi\",               CMD_gzll_rssi,            \"\" }, \r\n");
 		uart_puts("{\"tr\",                 CMD_gzll_tr,              \"\" } \r\n");
+		uart_puts("{\"boot\",               CMD_bootloader            \"\" } \r\n");
 
     return 0;
 }
 
-int CMD_can_termination (int argc, char **argv)
+int CMD_bootloader (int argc, char **argv)
 {
-	if(argc == 2)
-	{
-		if(strcmp(argv[1], "on") == 0)
-		{
-		uart_puts("CANTerminationON();\r\n");	
-		}
-		else if(strcmp(argv[1], "off") == 0)
-		{
-		uart_puts("CANTerminationOFF();\r\n");	
-		}
-		else {
-			uart_puts("CMDLINE_INVALID_ARG\r\n");	
-			return CMDLINE_INVALID_ARG;
-		}
-	}
-	else{
-		uart_puts("CMDLINE_TOO_FEW_ARGS\r\n");	
-		return CMDLINE_TOO_FEW_ARGS;
-	}	
-
-return 0;
-}
-
-int CMD_mcp_change_mode (int argc, char **argv)
-{
-
-	return 0;
-}
-
-int CMD_mcp_set_tx_filter (int argc, char **argv)
-{
-
-	return 0;
-}
-
-int CMD_mcp_set_rx_filter (int argc, char **argv)
-{
-
-	return 0;
-}
-#define CAN_BUFF_SIZE		MAX_DATA_BYTES
-//uint8_t can_rx[CAN_BUFF_SIZE], can_tx[CAN_BUFF_SIZE];
-
-int CMD_mcp_verfy_spi (int argc, char **argv)
-{
-//	int i;
-//	int seed; 
-//	
-//	sscanf(argv[1], "%d", &seed);
-//	srand(seed);
-//	for(i = 0; i < CAN_BUFF_SIZE; i++)
-//	{
-//		can_tx[i] = rand() & 0xFF;
-//		can_rx[i] = 0xFF;
-//	}
 	
-	//Write to MCP RAM
-	//DRV_CANFDSPI_WriteByteArray(DRV_CANFDSPI_INDEX_0, cRAMADDR_START, can_tx, CAN_BUFF_SIZE);
-	
-	//Read from MCP RAM
-	//DRV_CANFDSPI_WriteByteArray(DRV_CANFDSPI_INDEX_0, cRAMADDR_START, can_rx, CAN_BUFF_SIZE);
-
-//	for(i = 0; i < CAN_BUFF_SIZE; i++)
-//	{
-//		if(can_tx[i] != can_rx[i]) 
-//		{
-//			uart_printf("RAM check error on index %d, TX: %c, RX: %c\r\n", i, can_tx[i], can_rx[i]);
-//		}
-//	}
+		boot = 1;	
 
 	return 0;
 }
+
 
 int CMD_gzll_mode(int argc, char **argv){
 	
@@ -476,14 +383,4 @@ int CMD_flash_load(int argc, char **argv){
 		return 0;
 
 }
-
-
-int CMD_location(int argc, char **argv){
-
-
-						terminalOut("\n\r main 0x10000");	
-
-		return 0;
-
-};
 
