@@ -27,10 +27,15 @@
 
 extern	char g_cInput[APP_INPUT_BUF_SIZE];//temp buffer for command line parser
 extern unsigned char cBr; //counter for temp. buffer for command line parser
-extern gzllStruct gzll;
+//extern gzllStruct gzll;
 extern I2C_config_t i2c_config;
 
 
+extern uint32_t JumpAddress;
+typedef  void (*pFunction)(void);
+extern pFunction Jump_To_Application;
+#define BOOTLOADER_ADDRESS    0x00032000
+extern volatile uint8_t boot;
 
 #endif
 
