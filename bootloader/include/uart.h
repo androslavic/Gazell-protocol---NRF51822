@@ -16,12 +16,12 @@
 void uart_puts(char *word);
 void uart_init(void);
 void UART0_IRQHandler(void);
+extern volatile uint8_t slovo;
 
 extern uint32_t JumpAddress;
 typedef  void (*pFunction)(void);
 extern pFunction Jump_To_Application;
-#define APPLICATION_ADDRESS    0x0008000
-
+#define APPLICATION_ADDRESS    0x0000000
 
 #endif //UART_H__
 

@@ -27,7 +27,7 @@
 
 extern	char g_cInput[APP_INPUT_BUF_SIZE];//temp buffer for command line parser
 extern unsigned char cBr; //counter for temp. buffer for command line parser
-extern gzllStruct gzll;
+//extern gzllStruct gzll;
 extern I2C_config_t i2c_config;
 
 
