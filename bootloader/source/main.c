@@ -2,19 +2,12 @@
 
 
 
-
-
 void system_init(void){
 	
 	clock_init();
 	uart_init();	
 	RingBufInit(&ringBuf, buffer,size);
-	gzll.mode=NRF_GZLL_MODE_SUSPEND;	
-
-	gzll_check();	
 	flash_check();
-
-		NRF_UART0->ENABLE = 0; 
 
 }
 
@@ -26,12 +19,16 @@ void system_init(void){
 int main (void) {
 	
 	
+
 	system_init();
-
-	int i=0;
 	
-
+	int i;
 	
+	terminalOut("\n\r Bootloader initialised!.");	
+
+
+	NRF_UART0->ENABLE = 0; 
+
 	JumpAddress = *(__IO uint32_t*) (APPLICATION_ADDRESS + 4);
 	Jump_To_Application = (pFunction) JumpAddress;
 
@@ -39,12 +36,13 @@ int main (void) {
 		
 	Jump_To_Application();
 		
-	terminalOut("\n\r Error,bootloader did not enter main program.");	
 
 	
-  while (1) 
-	{
+	
+  while (1) {
+
 			++i;	
+
   }	
 }
 	
