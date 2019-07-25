@@ -10,7 +10,7 @@ void system_init(void){
 	gzll.mode=NRF_GZLL_MODE_SUSPEND;	
 	flash_check();
 	start_timer();
-
+	__enable_irq();
 }
 
 
@@ -22,17 +22,18 @@ int main (void) {
 	
 	system_init();
 	terminalOut("System initialised!\r\n");	
-
 	
 	
   while (1) 
 	{
 
-		
+	
+	// firmware update flag check
 	if (boot == 1)
 		{
 	
 			boot = 0;
+			__disable_irq();
 		
 			JumpAddress = *(__IO uint32_t*) (BOOTLOADER_ADDRESS + 4);
 			Jump_To_Application = (pFunction) JumpAddress;
