@@ -78,7 +78,6 @@
 		
 			nrf_gzll_disable();
 
-
 			uint8_t poljeKanala[8]={10,20,30,40};
 
 			nrf_gzll_init	(	NRF_GZLL_MODE_DEVICE)	;
@@ -113,8 +112,8 @@
 			gzll.power=NRF_GZLL_TX_POWER_N8_DBM;
 			gzll.data_rate=NRF_GZLL_DATARATE_250KBIT;
 			
-			
 			nrf_gzll_enable();
+
 
 
 	}

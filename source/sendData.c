@@ -15,10 +15,12 @@ int sendData(const char *format, ...){
 
 	  vsprintf (buffer, format, arg);
 	
-			if (!(nrf_gzll_add_packet_to_tx_fifo	(	0,(uint8_t *)&buffer,count*sizeof(uint8_t)))){ 
-					uart_puts(" Greska,paket nije dodan na tx fifo!\r\n");
-					RingBufFlush(&ringBuf);		
-					}
+			if (!(nrf_gzll_add_packet_to_tx_fifo	(	0,(uint8_t *)&buffer,count*sizeof(uint8_t))))
+			{ 
+				uart_puts(" Greska,paket nije dodan na tx fifo!\r\n");
+				RingBufFlush(&ringBuf);		
+			}
+			
 	  va_end (arg);
 
 	
